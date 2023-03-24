@@ -24,6 +24,7 @@ dom.tasksList.addEventListener("keydown", (e) => {
     }
 
     let li = e.target.closest("li");
+    const previousSibling = li.previousElementSibling;
 
     if (e.key === "Enter" && !e.repeat) {
         addItem();
@@ -32,10 +33,13 @@ dom.tasksList.addEventListener("keydown", (e) => {
         li.querySelector(".title")?.value.length === 0 &&
         !e.repeat
     ) {
-        const previousSibling = li.previousElementSibling;
         li.querySelector(".delete").click();
         focusTask(previousSibling ?? dom.tasksList.firstElementChild);
         e.preventDefault(); // prevent data corruption
+    } else if (e.key === "ArrowUp") {
+        focusTask(previousSibling ?? dom.tasksList.firstElementChild);
+    } else if (e.key === "ArrowDown") {
+        focusTask(li.nextElementSibling ?? dom.tasksList.lastElementChild);
     }
 });
 
