@@ -42,7 +42,9 @@ dom.tasksList.addEventListener("keydown", (e) => {
 dom.tasksList.addEventListener("click", (e) => {
     if (e.target.className === "delete") {
         const li = e.target.closest("li");
+        const previousSibling = li.previousElementSibling;
         li.remove();
+        focusTask(previousSibling ?? dom.tasksList.firstElementChild);
         updateCounts();
     }
 });
