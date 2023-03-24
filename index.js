@@ -39,6 +39,14 @@ dom.tasksList.addEventListener("keydown", (e) => {
     }
 });
 
+dom.tasksList.addEventListener("click", (e) => {
+    if (e.target.className === "delete") {
+        const li = e.target.closest("li");
+        li.remove();
+        updateCounts();
+    }
+});
+
 // Store data when page is closed
 globalThis.addEventListener("beforeunload", () => {
     localStorage.tasks = JSON.stringify(getData());
