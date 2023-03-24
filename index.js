@@ -4,6 +4,7 @@ export const dom = {
     taskTemplate: document.querySelector("#task_template"),
     doneCount: document.querySelector("#done_count"),
     totalCount: document.querySelector("#total_count"),
+    clearButton: document.querySelector("#clear"),
 };
 
 // Initialize data. Do we have anything stored?
@@ -16,6 +17,8 @@ if (localStorage.tasks) {
     // Add one empty task to start with
     addItem();
 }
+
+dom.clearButton.addEventListener("click", clearCompleted);
 
 dom.tasksList.addEventListener("keydown", (e) => {
     if (!e.target.matches("input.title")) {
@@ -83,7 +86,10 @@ export function addItem(data = { done: false, title: "" }) {
  * Delete all tasks that are marked as done
  */
 export function clearCompleted() {
-    // TODO implement this (see step 4)
+    const buttons = dom.tasksList.querySelectorAll(":has(:checked) > .delete");
+    for (const elt of buttons) {
+        elt.click();
+    }
 }
 
 /**
